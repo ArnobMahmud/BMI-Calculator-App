@@ -3,12 +3,13 @@ import 'package:bmi_calculator/pages/home-page.dart';
 import 'package:bmi_calculator/widgets/bottom-button.dart';
 import 'package:bmi_calculator/widgets/card.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ResultPage extends StatefulWidget {
-  const ResultPage({this.bmiresult, this.resulttext, this.interpretation});
+  const ResultPage({this.bmiresult, this.resultText, this.interpretation});
 
   final String bmiresult;
-  final String resulttext;
+  final String resultText;
   final String interpretation;
 
   @override
@@ -20,7 +21,9 @@ class _ResultPageState extends State<ResultPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('BMI Calculator'),
+        title: Text('BMI Calculator',
+            style: GoogleFonts.raleway(
+                fontSize: 27.0, fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
       body: Column(
@@ -46,17 +49,20 @@ class _ResultPageState extends State<ResultPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Normal',
+                    widget.resultText.toUpperCase(),
                     style: kResultTextStyle,
                   ),
                   Text(
-                    '18.3',
+                    widget.bmiresult,
                     style: kBMITextStyle,
                   ),
-                  Text(
-                    'Your BMI result is quite low! You should eat more.',
-                    style: kResultDetailsTextStyle,
-                    textAlign: TextAlign.center,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      widget.interpretation,
+                      style: kResultDetailsTextStyle,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ],
               ),

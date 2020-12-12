@@ -7,6 +7,7 @@ import 'package:bmi_calculator/widgets/icon-content.dart';
 import 'package:bmi_calculator/widgets/round-button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 enum Gender {
   male,
@@ -28,7 +29,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('BMI Calculator'),
+          title: Text('BMI  Calculator',
+              style: GoogleFonts.raleway(
+                  fontSize: 27.0, fontWeight: FontWeight.bold)),
           centerTitle: true,
         ),
         body: Column(
@@ -212,10 +215,17 @@ class _HomePageState extends State<HomePage> {
             BottomButton(
               buttonTitle: 'Calculate',
               onTap: () {
-                CalculatorBrain calc = CalculatorBrain();
+                CalculatorBrain calculation =
+                    CalculatorBrain(height: height, weight: weight);
 
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ResultPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ResultPage(
+                              bmiresult: calculation.calculateBMI(),
+                              resultText: calculation.getResult(),
+                              interpretation: calculation.getInterpretation(),
+                            )));
               },
             ),
           ],

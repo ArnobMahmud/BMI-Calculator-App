@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class RebuildCard extends StatelessWidget {
-
   RebuildCard({@required this.colour, this.cardChild, this.onPressed});
   final Color colour;
   final Widget cardChild;
