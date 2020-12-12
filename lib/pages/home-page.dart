@@ -1,11 +1,13 @@
+import 'package:bmi_calculator/constants/constants.dart';
 import 'package:bmi_calculator/widgets/card.dart';
 import 'package:bmi_calculator/widgets/icon-content.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-const bottomContainerColor = Color(0xFFEB1555);
-const bottomContainerHeight = 70.0;
-const cardColor = Color(0xFF1D1E33);
+enum Gender {
+  male,
+  female,
+}
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,6 +15,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Gender selectedGender;
+  int height = 180;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,19 +26,40 @@ class _HomePageState extends State<HomePage> {
           centerTitle: true,
         ),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
               child: Row(
                 children: [
                   Expanded(
                     child: RebuildCard(
-                        colour: cardColor, 
-                        cardChild: IconContent(icon: FontAwesomeIcons.mars, lebel: 'Male',)),
+                        onPressed: () {
+                          setState(() {
+                            selectedGender = Gender.male;
+                          });
+                        },
+                        colour: selectedGender == Gender.male
+                            ? kActivecardColor
+                            : kInactivecardColor,
+                        cardChild: IconContent(
+                          icon: FontAwesomeIcons.mars,
+                          lebel: 'Male',
+                        )),
                   ),
                   Expanded(
                     child: RebuildCard(
-                      colour: cardColor,
-                      cardChild: IconContent(icon: FontAwesomeIcons.venus, lebel: 'Female',),
+                      onPressed: () {
+                        setState(() {
+                          selectedGender = Gender.female;
+                        });
+                      },
+                      colour: selectedGender == Gender.female
+                          ? kActivecardColor
+                          : kInactivecardColor,
+                      cardChild: IconContent(
+                        icon: FontAwesomeIcons.venus,
+                        lebel: 'Female',
+                      ),
                     ),
                   ),
                 ],
@@ -41,7 +67,42 @@ class _HomePageState extends State<HomePage> {
             ),
             Expanded(
               child: RebuildCard(
-                colour: cardColor,
+                colour: kActivecardColor,
+                cardChild: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Height',
+                      style: kLebelTextStyle,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      children: [
+                        Text(
+                          height.toString(),
+                          style: kNumberTextStyle,
+                        ),
+                        Text(
+                          'cm',
+                          style: kLebelTextStyle,
+                        ),
+                      ],
+                    ),
+                    Slider(
+                      value: height.toDouble(),
+                      min: 120.0,
+                      max: 220.0,
+                      activeColor: Color(0xFFEB1555),
+                      inactiveColor: Color(0xFF8D8E98),
+                      onChanged: (double newValue) {
+                        setState(() {
+                          height = newValue.round();
+                        });
+                      },
+                    )
+                  ],
+                ),
               ),
             ),
             Expanded(
@@ -49,12 +110,12 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Expanded(
                     child: RebuildCard(
-                      colour: cardColor,
+                      colour: kActivecardColor,
                     ),
                   ),
                   Expanded(
                     child: RebuildCard(
-                      colour: cardColor,
+                      colour: kActivecardColor,
                     ),
                   ),
                 ],
@@ -63,8 +124,8 @@ class _HomePageState extends State<HomePage> {
             Container(
               margin: EdgeInsets.only(top: 10),
               width: double.infinity,
-              color: bottomContainerColor,
-              height: bottomContainerHeight,
+              color: kBottomContainerColor,
+              height: kBottomContainerHeight,
             )
           ],
         ));
