@@ -1,5 +1,7 @@
 import 'package:bmi_calculator/constants/constants.dart';
+import 'package:bmi_calculator/function/functionality.dart';
 import 'package:bmi_calculator/pages/result-page.dart';
+import 'package:bmi_calculator/widgets/bottom-button.dart';
 import 'package:bmi_calculator/widgets/card.dart';
 import 'package:bmi_calculator/widgets/icon-content.dart';
 import 'package:bmi_calculator/widgets/round-button.dart';
@@ -207,24 +209,15 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            GestureDetector(
+            BottomButton(
+              buttonTitle: 'Calculate',
               onTap: () {
+                CalculatorBrain calc = CalculatorBrain();
+
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => ResultPage()));
               },
-              child: Container(
-                margin: EdgeInsets.only(top: 10),
-                width: double.infinity,
-                color: kBottomContainerColor,
-                height: kBottomContainerHeight,
-                child: Center(
-                  child: Text(
-                    'Calculate',
-                    style: kLargeButtonText,
-                  ),
-                ),
-              ),
-            )
+            ),
           ],
         ));
   }
