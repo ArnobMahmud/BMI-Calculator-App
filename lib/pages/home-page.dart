@@ -1,4 +1,5 @@
 import 'package:bmi_calculator/constants/constants.dart';
+import 'package:bmi_calculator/pages/result-page.dart';
 import 'package:bmi_calculator/widgets/card.dart';
 import 'package:bmi_calculator/widgets/icon-content.dart';
 import 'package:bmi_calculator/widgets/round-button.dart';
@@ -19,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   Gender selectedGender;
   int height = 180;
   int weight = 60;
+  int age = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -131,6 +133,7 @@ class _HomePageState extends State<HomePage> {
                             style: kNumberTextStyle,
                           ),
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               RoundIconButton(
@@ -161,16 +164,66 @@ class _HomePageState extends State<HomePage> {
                   Expanded(
                     child: RebuildCard(
                       colour: kActivecardColor,
+                      cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Age',
+                            style: kLebelTextStyle,
+                          ),
+                          Text(
+                            age.toString(),
+                            style: kNumberTextStyle,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              RoundIconButton(
+                                icon: FontAwesomeIcons.plus,
+                                onPressed: () {
+                                  setState(() {
+                                    age++;
+                                  });
+                                },
+                              ),
+                              SizedBox(
+                                width: 20.0,
+                              ),
+                              RoundIconButton(
+                                icon: FontAwesomeIcons.minus,
+                                onPressed: () {
+                                  setState(() {
+                                    age--;
+                                  });
+                                },
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              width: double.infinity,
-              color: kBottomContainerColor,
-              height: kBottomContainerHeight,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ResultPage()));
+              },
+              child: Container(
+                margin: EdgeInsets.only(top: 10),
+                width: double.infinity,
+                color: kBottomContainerColor,
+                height: kBottomContainerHeight,
+                child: Center(
+                  child: Text(
+                    'Calculate',
+                    style: kLargeButtonText,
+                  ),
+                ),
+              ),
             )
           ],
         ));
