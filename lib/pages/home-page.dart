@@ -1,4 +1,5 @@
 import 'package:bmi_calculator/constants/constants.dart';
+import 'package:bmi_calculator/function/firestore.dart';
 import 'package:bmi_calculator/function/functionality.dart';
 import 'package:bmi_calculator/pages/result-page.dart';
 import 'package:bmi_calculator/widgets/bottom-button.dart';
@@ -217,6 +218,8 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 CalculatorBrain calculation =
                     CalculatorBrain(height: height, weight: weight);
+
+                sendData();
 
                 Navigator.push(
                     context,
